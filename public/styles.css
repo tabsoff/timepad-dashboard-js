@@ -1,0 +1,117 @@
+div {
+  box-shadow: 0 0 0 1px rgb(255, 0, 0);
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("fonts/Geist-Bold.woff2") format("woff2");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("fonts/Geist-Regular.woff2") format("woff2");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("fonts/Geist-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+}
+
+:root {
+  --graph-height: 100%;
+
+  --color-ticket-all: #ededed;
+  --color-ticket-reserved: #ff8ea6;
+  --color-ticket-reseption: #ffd78e;
+  --color-ticket-timepad: #b08eff;
+
+  --color-ticket-font-all: #b9b9b9;
+  --color-ticket-font-reserved: #b94961;
+  --color-ticket-font-reseption: #8b6e39;
+  --color-ticket-font-timepad: #5e449a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Geist", "Montserrat", " Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+
+#graph-container {
+  box-sizing: border-box;
+  padding: 64px;
+  display: flex;
+  height: 100%;
+}
+
+.event-container {
+  width: 100%;
+  height: 100%;
+}
+
+.graph {
+  height: var(--graph-height);
+}
+
+.graph-ticket {
+  border-radius: 32px;
+}
+
+.graph-tickets-all {
+  background-color: var(--color-ticket-all);
+  height: var(--graph-height);
+}
+
+.graph-tickets-reserved {
+  background-color: var(--color-ticket-reserved);
+}
+
+.graph-tickets-reseption {
+  background-color: var(--color-ticket-reseption);
+}
+
+.graph-tickets-timepad {
+  background-color: var(--color-ticket-timepad);
+}
+
+.ticket-label {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  height: 48px;
+  width: 48px;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: normal;
+  line-height: 48px;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.ticket-label-all {
+  background-color: var(--color-ticket-all);
+  color: var(--color-ticket-font-all);
+}
+
+.ticket-label-reserved {
+  background-color: var(--color-ticket-reserved);
+  color: var(--color-ticket-font-reserved);
+}
+
+.ticket-label-reseption {
+  background-color: var(--color-ticket-reseption);
+  color: var(--color-ticket-font-reseption);
+}
+
+.ticket-label-timepad {
+  background-color: var(--color-ticket-timepad);
+  color: var(--color-ticket-font-timepad);
+}
