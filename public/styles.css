@@ -1,5 +1,5 @@
 div {
-  box-shadow: 0 0 0 1px rgb(255, 0, 0);
+  /* box-shadow: 0 0 0 1px rgb(255, 0, 0); */
 }
 
 @font-face {
@@ -20,8 +20,16 @@ div {
   font-weight: 600;
 }
 
+@font-face {
+  font-family: "Geist";
+  src: url("fonts/Geist-Medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
 :root {
   --graph-height: 100%;
+
+  --color-red: #dd6c6e;
 
   --color-ticket-all: #ededed;
   --color-ticket-reserved: #ff8ea6;
@@ -32,10 +40,13 @@ div {
   --color-ticket-font-reserved: #b94961;
   --color-ticket-font-reseption: #8b6e39;
   --color-ticket-font-timepad: #5e449a;
+  --color-font-main: #0b0b0b;
+  --color-font-gray: #b9b9b9;
 }
 
 body {
   margin: 0;
+  line-height: unset;
   padding: 0;
   width: 100vw;
   height: 100vh;
@@ -43,9 +54,16 @@ body {
     sans-serif;
 }
 
+#dashboard {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
 #graph-container {
   box-sizing: border-box;
-  padding: 64px;
+  padding: 64px 32px;
   display: flex;
   height: 100%;
 }
@@ -53,6 +71,9 @@ body {
 .event-container {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 32px;
 }
 
 .graph {
@@ -114,4 +135,52 @@ body {
 .ticket-label-timepad {
   background-color: var(--color-ticket-timepad);
   color: var(--color-ticket-font-timepad);
+}
+
+.event-header {
+  text-align: center;
+  font-size: 24px;
+  color: var(--color-font-main);
+  margin-bottom: 32px;
+}
+
+.event-header > span:nth-child(1) {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.event-header > span:nth-child(2) {
+  margin: 0px 4px;
+}
+
+.event-header-limit-warning {
+  color: white;
+  font-weight: 500;
+  background-color: var(--color-red);
+  border-radius: 8px;
+  padding: 0 8px;
+}
+
+.event-footer {
+  text-align: center;
+  color: var(--color-font-main);
+  margin-top: 28px;
+  font-size: 24px;
+}
+
+.event-footer > div {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.event-footer > span:nth-child(3) {
+  margin: 0px 4px;
+  color: var(--color-font-gray);
+}
+
+/* */
+
+#myTab {
+  position: absolute;
 }
