@@ -13,13 +13,33 @@ function formatDate(date, includingYear = true) {
   return `${day}.${month}`;
 }
 
+// Add date formatting helper function at the top
+function formatDateTime(date) {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+  return `${day}.${month} ${hours}:${minutes}`;
+}
+
 // Функция для загрузки данных и отображения dashboard
 function loadDashboard() {
+  const renderTime = new Date();
+
   fetch("/api/events")
     .then((response) => response.json())
     .then((data) => {
       const container = document.getElementById("graph-container");
       container.innerHTML = ""; // очищаем контент
+
+      // Обновляем информацию о времени
+      const updateTimeElement = document.getElementById("update-time");
+      const lastUpdate = data.lastUpdateTime
+        ? formatDateTime(data.lastUpdateTime)
+        : "never";
+      const rendered = formatDateTime(renderTime);
+      updateTimeElement.textContent = `updated: ${lastUpdate} // rendered: ${rendered}`;
 
       // Sort events by date
       const sortedEvents = data.events.sort(
@@ -28,14 +48,21 @@ function loadDashboard() {
 
       var eventHTML = ``;
 
+      // Add class to container if there are more than 8 events
+      if (sortedEvents.length > 8) {
+        container.classList.add("many-events");
+      } else {
+        container.classList.remove("many-events");
+      }
+
       sortedEvents.forEach((event) => {
         // Определяем переменные
-        const eventId = "event.id";
+        const eventId = event.id; // Fixed: use actual event.id instead of string "event.id"
         const totalLimit = event.ticket_limit;
         const timepadLimit = event.timepad_ticket_limit;
         const ticketReserved = event.reserved_tickets;
         const ticketReseption = event.sales_reception;
-        const ticketTimepad = event.timepad_sold;
+        const ticketTimepad = event.timepad_sold || 0; // Add default 0 value if undefined
 
         // Рассчитываем оставшиеся дни
         const today = new Date();
@@ -69,7 +96,7 @@ function loadDashboard() {
         //
         // Проверяем на соответсвие лимитов и выставляем предупреждение
         //
-        if (timepadLimit != totalLimit) {
+        if (timepadLimit + ticketReserved + ticketReseption != totalLimit) {
           eventHTML += `class="event-header-limit-warning"`;
         }
 
@@ -169,10 +196,11 @@ setInterval(function () {
   if ($("#dashboard").hasClass("active")) {
     loadDashboard();
   }
-}, 1000);
+}, 60000);
 
 // Main initialization
 document.addEventListener("DOMContentLoaded", () => {
+  loadDashboard();
   loadManualEvents();
   initializeEventHandlers();
 });
