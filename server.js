@@ -49,6 +49,7 @@ app.post("/api/events", (req, res) => {
     // Добавление нового события
     db.run(
       `INSERT INTO events (name, date, ticket_limit, sales_reception, reserved_tickets) VALUES (?, ?, ?, ?, ?)`,
+
       [name, date, ticket_limit, sales_reception, reserved_tickets],
       function (err) {
         if (err) {
@@ -58,6 +59,56 @@ app.post("/api/events", (req, res) => {
       }
     );
   }
+});
+
+// Добавление маршрута для удаления события по ID
+app.delete("/api/events/:id", (req, res) => {
+  const { id } = req.params;
+  db.run("DELETE FROM events WHERE id = ?", [id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ message: "Событие удалено", changes: this.changes });
+  });
+});
+
+// Маршрут для обновления отдельного поля события
+app.patch("/api/events/:id/:field", (req, res) => {
+  const { id, field } = req.params;
+  const { value } = req.body;
+
+  // Проверяем, что поле допустимо
+  const allowedFields = [
+    "name",
+    "date",
+    "ticket_limit",
+    "sales_reception",
+    "reserved_tickets",
+    "timepad_id",
+    "id",
+  ];
+
+  if (!allowedFields.includes(field)) {
+    return res.status(400).json({
+      error: "Invalid field name",
+      field: field,
+      allowed: allowedFields,
+    });
+  }
+
+  // Защита от SQL-инъекций: используем параметризованный запрос
+  const sql = `UPDATE events SET "${field}" = ? WHERE id = ?`;
+
+  db.run(sql, [value, id], function (err) {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({
+      message: "Поле обновлено",
+      changes: this.changes,
+    });
+  });
 });
 
 // Пример cron-задачи: обновление данных из TimePad каждые 15 минут
