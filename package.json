@@ -1,12 +1,19 @@
 {
   "name": "timepad-dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Dashboard for TimePad ticket sales visualization",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "init-db": "node init_db.js",
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "timepad",
+    "dashboard",
+    "tickets",
+    "visualization"
+  ],
   "author": "tabsoff",
   "license": "ISC",
   "dependencies": {
@@ -14,5 +21,11 @@
     "express": "^5.1.0",
     "node-cron": "^3.0.3",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
