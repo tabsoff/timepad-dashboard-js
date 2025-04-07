@@ -63,7 +63,7 @@ body {
 
 #graph-container {
   box-sizing: border-box;
-  padding: 48pc 32px 32px 32px;
+  padding: 48px 32px 32px 32px;
   display: flex;
   height: 100%;
 }
