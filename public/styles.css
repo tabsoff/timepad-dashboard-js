@@ -231,8 +231,8 @@ body {
 
 .update-time {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  bottom: 4px;
+  left: 4px;
   color: var(--color-font-gray);
   font-size: 16px;
   font-weight: 500;
