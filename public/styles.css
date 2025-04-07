@@ -109,16 +109,16 @@ body {
   position: relative;
   left: 50%;
   top: 50%;
-  height: 48px;
-  width: 48px;
+  height: 42px;
+  width: 42px;
   transform: translate(-50%, -50%);
   border-radius: 100%;
   text-align: center;
   vertical-align: middle;
   line-height: normal;
-  line-height: 48px;
+  line-height: 42px;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 28px;
 }
 
 .ticket-label-all {
